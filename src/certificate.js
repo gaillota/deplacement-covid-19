@@ -39,7 +39,7 @@ function getProfile () {
   const now = new Date()
   const hour = pad(now.getHours())
   const minute = pad(now.getMinutes())
-  
+
   return {
     firstname: 'Antoine',
     lastname: 'Gaillot',
@@ -246,27 +246,29 @@ const conditions = {
 }
 
 function validateAriaFields () {
-  return Object.keys(conditions).map(field => {
-    if (conditions[field].condition === 'pattern') {
-      const pattern = conditions[field].pattern
-      if ($(field).value.match(pattern)) {
-        $(field).setAttribute('aria-invalid', 'false')
-        return 0
-      } else {
-        $(field).setAttribute('aria-invalid', 'true')
-        $(field).focus()
-        return 1
+  return Object.keys(conditions)
+    .map((field) => {
+      if (conditions[field].condition === 'pattern') {
+        const pattern = conditions[field].pattern
+        if ($(field).value.match(pattern)) {
+          $(field).setAttribute('aria-invalid', 'false')
+          return 0
+        } else {
+          $(field).setAttribute('aria-invalid', 'true')
+          $(field).focus()
+          return 1
+        }
       }
-    }
-    if (conditions[field].condition === 'length') {
-      if ($(field).value.length > 0) {
-        $(field).setAttribute('aria-invalid', 'false')
-        return 0
-      } else {
-        $(field).setAttribute('aria-invalid', 'true')
-        $(field).focus()
-        return 1
+      if (conditions[field].condition === 'length') {
+        if ($(field).value.length > 0) {
+          $(field).setAttribute('aria-invalid', 'false')
+          return 0
+        } else {
+          $(field).setAttribute('aria-invalid', 'true')
+          $(field).focus()
+          return 1
+        }
       }
-    }
-  }).some(x => x === 1)
+    })
+    .some((x) => x === 1)
 }
