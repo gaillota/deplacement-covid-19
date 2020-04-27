@@ -3,9 +3,9 @@ module.exports = {
     autoprefixer: {
       grid: true,
     },
-    'postcss-preset-env': {},
-    'postcss-nested-ancestors': {},
-    'postcss-nested': {},
-    'postcss-current-selector': {},
+    'postcss-preset-env': true,
+    'postcss-nested-ancestors': true,
+    'postcss-nested': true,
+    'postcss-current-selector': true,
   },
 }
