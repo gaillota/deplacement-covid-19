@@ -35,31 +35,22 @@ function getFormattedDate (date) {
   return `${year}-${month}-${day}`
 }
 
-document.addEventListener('DOMContentLoaded', setReleaseDateTime)
-
-function setReleaseDateTime () {
-  const releaseDateInput = $('#field-datesortie')
-  const loadedDate = new Date()
-  releaseDateInput.value = getFormattedDate(loadedDate)
-
+function getProfile () {
+  const now = new Date()
   const hour = pad(loadedDate.getHours())
   const minute = pad(loadedDate.getMinutes())
-
-  const releaseTimeInput = $('#field-heuresortie')
-  releaseTimeInput.value = `${hour}:${minute}`
-}
-
-function getProfile () {
-  const fields = {}
-  for (const field of $$('#form-profile input')) {
-    if (field.id === 'field-datesortie') {
-      const dateSortie = field.value.split('-')
-      fields[field.id.substring('field-'.length)] = `${dateSortie[2]}/${dateSortie[1]}/${dateSortie[0]}`
-    } else {
-      fields[field.id.substring('field-'.length)] = field.value
-    }
+  
+  return {
+    firstname: 'Antoine',
+    lastname: 'Gaillot',
+    birthday: '28/09/1992',
+    lieunaissance: 'Noisy le Grand',
+    address: '33C avenue Edmond Grasset',
+    zipcode: '17690',
+    town: 'Angoulins',
+    datesortie: getFormattedDate(now),
+    heuresortie: `${hour}:${minute}`,
   }
-  return fields
 }
 
 function idealFontSize (font, text, maxWidth, minSize, defaultSize) {
@@ -217,23 +208,6 @@ if (isFacebookBrowser()) {
   alertFacebookElt.classList.remove('d-none')
 }
 
-function addSlash () {
-  const birthdayInput = $('#field-birthday')
-  birthdayInput.value = birthdayInput.value.replace(/^(\d{2})$/g, '$1/')
-    .replace(/^(\d{2})\/(\d{2})$/g, '$1/$2/')
-    .replace(/\/\//g, '/')
-}
-
-$('#field-birthday').onkeyup = function () {
-  const key = event.keyCode || event.charCode
-  if (key === 8 || key === 46) {
-    return false
-  } else {
-    addSlash()
-    return false
-  }
-}
-
 const snackbar = $('#snackbar')
 
 $('#generate-btn').addEventListener('click', async (event) => {
@@ -245,7 +219,7 @@ $('#generate-btn').addEventListener('click', async (event) => {
   const pdfBlob = await generatePdf(getProfile(), reasons)
 
   const creationInstant = new Date()
-  const creationDate = creationInstant.toLocaleDateString('fr-CA')
+  const creationDate = creationInstant.toLocaleDateString('fr-FR')
   const creationHour = creationInstant
     .toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
     .replace(':', '-')
@@ -260,35 +234,7 @@ $('#generate-btn').addEventListener('click', async (event) => {
   }, 6000)
 })
 
-$$('input').forEach((input) => {
-  const exempleElt = input.parentNode.parentNode.querySelector('.exemple')
-  const validitySpan = input.parentNode.parentNode.querySelector('.validity')
-  if (input.placeholder && exempleElt) {
-    input.addEventListener('input', (event) => {
-      if (input.value) {
-        exempleElt.innerHTML = 'ex.&nbsp;: ' + input.placeholder
-        validitySpan.removeAttribute('hidden')
-      } else {
-        exempleElt.innerHTML = ''
-      }
-    })
-  }
-})
-
 const conditions = {
-  '#field-firstname': {
-    condition: 'length',
-  },
-  '#field-lastname': {
-    condition: 'length',
-  },
-  '#field-birthday': {
-    condition: 'pattern',
-    pattern: /^([0][1-9]|[1-2][0-9]|30|31)\/([0][1-9]|10|11|12)\/(19[0-9][0-9]|20[0-1][0-9]|2020)/g,
-  },
-  '#field-lieunaissance': {
-    condition: 'length',
-  },
   '#field-address': {
     condition: 'length',
   },
@@ -298,14 +244,6 @@ const conditions = {
   '#field-zipcode': {
     condition: 'pattern',
     pattern: /\d{5}/g,
-  },
-  '#field-datesortie': {
-    condition: 'pattern',
-    pattern: /\d{4}-\d{2}-\d{2}/g,
-  },
-  '#field-heuresortie': {
-    condition: 'pattern',
-    pattern: /\d{2}:\d{2}/g,
   },
 }
 
@@ -334,9 +272,3 @@ function validateAriaFields () {
     }
   }).some(x => x === 1)
 }
-
-(function addVersion () {
-  document.getElementById(
-    'version',
-  ).innerHTML = `${new Date().getFullYear()} - ${process.env.VERSION}`
-}())
