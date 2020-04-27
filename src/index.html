@@ -113,23 +113,50 @@
 
             <fieldset>
                 <legend class="titre-3">Choisissez le ou les motif(s) de sortie</legend>
-                <div class="form-group">
-                    <label for="reason">Motifs</label>
-                    <select class="form-control" id="reason">
-                        <option>Déplacement pour achats</option>
-                        <option>Déplacement professionnel</option>
-                        <option>Consultations et soins</option>
-                        <option>Déplacements pour motif familial</option>
-                        <option>Déplacements brefs (sport, balade)</option>
-                        <option>Convocation judiciaire ou
-                            administrative
-                        </option>
-                        <option>Participation à des missions d’intérêt
-                            général
-                        </option>
-                    </select>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-travail"
+                           value="travail">
+                    <label class="form-check-label" for="checkbox-travail">Déplacement professionnel</label>
                 </div>
-               
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-courses"
+                           value="courses">
+                    <label class="form-check-label" for="checkbox-courses">Déplacements pour achats (<a
+                        href="https://www.service-public.fr/particuliers/actualites/A13921" class="stores-link"
+                        title="Liste des commerces et établissements qui restent ouverts - nouvelle page"
+                        target="_blank">commerces ouverts</a>).</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-sante"
+                           value="sante">
+                    <label class="form-check-label" for="checkbox-sante">Consultations et soins.</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-famille"
+                           value="famille">
+                    <label class="form-check-label" for="checkbox-famille">Déplacements pour motif familial.</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-sport"
+                           value="sport">
+                    <label class="form-check-label" for="checkbox-sport">Déplacements brefs (sport, balade).</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-judiciaire"
+                           value="judiciaire">
+                    <label class="form-check-label" for="checkbox-judiciaire">Convocation judiciaire ou
+                        administrative.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="field-reason" id="checkbox-missions"
+                           value="missions">
+                    <label class="form-check-label" for="checkbox-missions">Participation à des missions d’intérêt
+                        général.</label>
+                </div>
             </fieldset>
 
             <p class="text-center mt-5">
