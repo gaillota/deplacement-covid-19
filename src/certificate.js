@@ -37,8 +37,8 @@ function getFormattedDate (date) {
 
 function getProfile () {
   const now = new Date()
-  const hour = pad(loadedDate.getHours())
-  const minute = pad(loadedDate.getMinutes())
+  const hour = pad(now.getHours())
+  const minute = pad(now.getMinutes())
   
   return {
     firstname: 'Antoine',
@@ -181,18 +181,16 @@ async function generatePdf (profile, reasons) {
 
 function downloadBlob (blob, fileName) {
   const link = document.createElement('a')
-  const url = URL.createObjectURL(blob)
-  link.href = url
+  link.href = URL.createObjectURL(blob)
   link.download = fileName
   document.body.appendChild(link)
   link.click()
 }
 
 function getReasons () {
-  const values = $$('input[name="field-reason"]:checked')
+  return $$('input[name="field-reason"]:checked')
     .map((x) => x.value)
     .join('-')
-  return values
 }
 
 // see: https://stackoverflow.com/a/32348687/1513045
